@@ -12,6 +12,6 @@ class TestSupportApp():
 
         perfil = PerfilPage(menu.driver)
         perfil.access_support()
-        perfil.verify_support_page()
+        assert perfil.verify_support_page(), 'Tela diferente de Suporte'
 
         
