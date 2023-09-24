@@ -23,5 +23,7 @@ def init_app():
     options.load_capabilities(caps)
 
     driver = webdriver.Remote("http://127.0.0.1:4723",  options=options)
+    # Espera 3 segundos para sair da animacao e acessar a home do aplicativo
+    driver.implicitly_wait(3)
     yield driver
     driver.quit()
