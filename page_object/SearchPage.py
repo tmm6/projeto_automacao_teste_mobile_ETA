@@ -6,9 +6,15 @@ class SearchPage(PageObject):
     # Elements
     search_field_id = "com.sympla.tickets:id/search_bar_text"
     title_event_resource_id = "com.sympla.tickets:id/sympla_event_title"
+    feedback_not_found_id = "com.sympla.tickets:id/app_empty_state_text"
 
     ## Text
     search_text = "Festival REC'n'Play 2023"
+    not_found_event_search = "ZZZZZZZZ"
+    not_found_expected_result = f"Não encontramos resultados relacionados a “{not_found_event_search}”. Que tal fazer uma nova busca?"
+    number_events_result_text = "Eventos (1)"
+    not_found_number_text = "Eventos (0)"
+
 
 
     def __init__(self, driver):
@@ -28,3 +34,16 @@ class SearchPage(PageObject):
             return True
         else:
             return False
+        
+    def not_found_event(self):
+        search_not_found = self.driver.find_element(by=AppiumBy.ID, value=self.search_field_id)
+        search_not_found.click()
+        search_not_found.send_keys(self.not_found_event_search)
+
+        # Simula o enter do teclado
+        self.driver.execute_script('mobile: performEditorAction', {'action': 'go'})
+
+        feedback_result = self.driver.find_element(by=AppiumBy.ID, value=self.feedback_not_found_id).text
+
+        # #number_event_result = self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value="Eventos (0)")
+        return feedback_result == self.not_found_expected_result

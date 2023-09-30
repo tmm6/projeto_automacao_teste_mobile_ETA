@@ -1,4 +1,3 @@
-import time
 from appium.webdriver.webdriver import WebDriver
 from page_object.MenuPage import MenuPage
 from page_object.PerfilPage import PerfilPage
