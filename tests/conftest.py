@@ -1,9 +1,10 @@
 
 import pytest
 from appium import webdriver
-from appium.webdriver.common.appiumby import AppiumBy
-from appium.webdriver.webdriver import WebDriver
 from appium.options.android import UiAutomator2Options
+from page_object.FavoritePage import FavoritePage
+from page_object.MenuPage import MenuPage
+from page_object.SearchPage import SearchPage
 
 
 @pytest.fixture()
@@ -27,3 +28,26 @@ def init_app():
     driver.implicitly_wait(3)
     yield driver
     driver.quit()
+
+# Desfavorita um evento apos os testes.
+@pytest.fixture()
+def after_favorite_event(init_app):
+    menu = MenuPage(init_app)
+    yield init_app
+    menu.access_favorites()
+    favorite = FavoritePage(menu.driver)
+    favorite.remove_favorite()
+
+# Favorita um evento antes do teste.
+@pytest.fixture()
+def before_favorite_event(init_app):
+    search = SearchPage(init_app)
+    search.search_event()
+        
+    favorite = FavoritePage(search.driver)
+    favorite.favorite_event()
+
+    search = SearchPage(favorite.driver)
+    search.go_back()
+    
+    yield init_app
