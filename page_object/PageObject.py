@@ -10,3 +10,7 @@ class PageObject:
         for item in options_list:
             if item.text == option:
                 return item
+    
+    # Simula o enter do teclado   
+    def enter_keyboard(self):
+        self.driver.execute_script('mobile: performEditorAction', {'action': 'go'})
