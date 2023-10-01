@@ -1,4 +1,3 @@
-from appium.webdriver.webdriver import WebDriver
 from page_object.SearchPage import SearchPage
 
 class Test_SearchEvent():

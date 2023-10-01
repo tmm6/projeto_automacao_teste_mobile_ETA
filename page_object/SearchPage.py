@@ -7,13 +7,15 @@ class SearchPage(PageObject):
     search_field_id = "com.sympla.tickets:id/search_bar_text"
     title_event_resource_id = "com.sympla.tickets:id/sympla_event_title"
     feedback_not_found_id = "com.sympla.tickets:id/app_empty_state_text"
+    go_back_id = "com.sympla.tickets:id/search_bar_left_action_container"
+
 
     ## Text
     search_text = "Festival REC'n'Play 2023"
     not_found_event_search = "ZZZZZZZZ"
     not_found_expected_result = f"Não encontramos resultados relacionados a “{not_found_event_search}”. Que tal fazer uma nova busca?"
-    number_events_result_text = "Eventos (1)"
-    not_found_number_text = "Eventos (0)"
+    # number_events_result_text = "Eventos (1)"
+    # not_found_number_text = "Eventos (0)"
 
 
 
@@ -47,3 +49,8 @@ class SearchPage(PageObject):
 
         # #number_event_result = self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value="Eventos (0)")
         return feedback_result == self.not_found_expected_result
+    
+    def go_back(self):
+        go_back = self.driver.find_element(by=AppiumBy.ID, value=self.go_back_id)
+        go_back.click()
+
